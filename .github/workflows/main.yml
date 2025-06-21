@@ -24,6 +24,6 @@ jobs:
           name: "PDF"
           body: |
             Medicine books
-          files: "Harrison%27s_Internal_Medicine_2022%2C_21th_Edition_Vol_1_%26_Vol_2_.pdf"
+          files: "Harrisons_Internal_Medicine.pdf"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
