@@ -24,6 +24,6 @@ jobs:
           name: "PDF"
           body: |
             Medicine books
-          files: "Harrisons_Internal_Medicine.pdf"
+          files: "store/Harrisons_Internal_Medicine.pdf"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
