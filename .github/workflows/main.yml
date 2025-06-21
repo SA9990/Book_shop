@@ -1,0 +1,29 @@
+name: Toolchain
+
+on:
+  workflow_dispatch:
+
+env:
+  TZ: Asia/Kolkata
+
+jobs:
+  download_PDF:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download PDF from Source
+        run: |
+          mkdir -p store
+          cd store
+          curl -LO "https://archive.org/download/harrisons-internal-medicine-2022-21th-edition-vol-1-vol-2/Harrison%27s_Internal_Medicine_2022%2C_21th_Edition_Vol_1_%26_Vol_2_.pdf"
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2.3.2
+        with:
+          tag_name: "PDF"
+          name: "PDF"
+          body: |
+            Medicine books
+          files: "Harrison%27s_Internal_Medicine_2022%2C_21th_Edition_Vol_1_%26_Vol_2_.pdf"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
