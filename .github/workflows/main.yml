@@ -2,9 +2,25 @@ name: Library
 
 on:
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name for the release'
+        required: true
+      release_name:
+        description: 'Name of the release'
+        required: true
+      pdf_url:
+        description: 'Direct URL to the PDF file'
+        required: true
+      output_name:
+        description: 'Output filename (with .pdf extension)'
+        required: true
 
 env:
   TZ: Asia/Kolkata
+
+permissions:
+  contents: write
 
 jobs:
   download_PDF:
@@ -15,15 +31,15 @@ jobs:
         run: |
           mkdir -p store
           cd store
-          curl -L "https://archive.org/download/harrisons-internal-medicine-2022-21th-edition-vol-1-vol-2/Harrison%27s_Internal_Medicine_2022%2C_21th_Edition_Vol_1_%26_Vol_2_.pdf" -o Harrisons_Internal_Medicine.pdf
+          curl -L "${{ github.event.inputs.pdf_url }}" -o "${{ github.event.inputs.output_name }}"
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2.3.2
         with:
-          tag_name: "PDF"
-          name: "PDF"
+          tag_name: "${{ github.event.inputs.tag_name }}"
+          name: "${{ github.event.inputs.release_name }}"
           body: |
             Medicine books
-          files: "store/Harrisons_Internal_Medicine.pdf"
+          files: "store/${{ github.event.inputs.output_name }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
