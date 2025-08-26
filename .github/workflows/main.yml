@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download PDF from Source
+      - name: Create store directory
+        run: mkdir -p store
+
+      - name: Download from Source
         run: |
-          mkdir -p store
-          cd store
-          curl -L "https://downloads.sourceforge.net/project/nikgapps/Releases/Android-15/16-Jul-2025/NikGapps-core-arm64-15-20250716-signed.zip?ts=gAAAAABorcedHkDrPLnyKmIb0jHYXxp2b3fqmoDs6i_GdUu-psSy2oAdUIEnTNIvvEPhk3D6IfejyHkfM-9xG3gCV2QcOE1Ihw%3D%3D&use_mirror=cyfuture&r="
+          curl -L -o store/NikGapps.zip "https://downloads.sourceforge.net/project/nikgapps/Releases/Android-15/16-Jul-2025/NikGapps-core-arm64-15-20250716-signed.zip?ts=gAAAAABorcedHkDrPLnyKmIb0jHYXxp2b3fqmoDs6i_GdUu-psSy2oAdUIEnTNIvvEPhk3D6IfejyHkfM-9xG3gCV2QcOE1Ihw%3D%3D&use_mirror=cyfuture&r="
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2.3.2
         with:
-          tag_name: "PDF"
-          name: "PDF"
+          tag_name: "zip"
+          name: "NikGapps Release"
           body: |
             Medicine books
-          files: "*.zip"
+          files: store/NikGapps.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
