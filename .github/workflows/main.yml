@@ -15,7 +15,7 @@ jobs:
         run: |
           mkdir -p store
           cd store
-          curl -L "https://archive.org/download/harrisons-internal-medicine-2022-21th-edition-vol-1-vol-2/Harrison%27s_Internal_Medicine_2022%2C_21th_Edition_Vol_1_%26_Vol_2_.pdf" -o Harrisons_Internal_Medicine.pdf
+          curl -L "https://downloads.sourceforge.net/project/nikgapps/Releases/Android-15/16-Jul-2025/NikGapps-core-arm64-15-20250716-signed.zip?ts=gAAAAABorcedHkDrPLnyKmIb0jHYXxp2b3fqmoDs6i_GdUu-psSy2oAdUIEnTNIvvEPhk3D6IfejyHkfM-9xG3gCV2QcOE1Ihw%3D%3D&use_mirror=cyfuture&r="
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2.3.2
@@ -24,6 +24,6 @@ jobs:
           name: "PDF"
           body: |
             Medicine books
-          files: "store/Harrisons_Internal_Medicine.pdf"
+          files: "*.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
